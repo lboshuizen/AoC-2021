@@ -1,0 +1,11 @@
+.stack-work/
+dist-newstyle
+
+cabal.project.local
+*.save?
+
+*.o
+*.hi
+*.prof
+
+.DS_Store
