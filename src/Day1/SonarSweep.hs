@@ -1,29 +1,22 @@
 module Day1.SonarSweep (sweep) where
 
-import Utils (stoi)
-
-dist :: (Int,Int) -> Int
-dist (x,y) = y-x
-
-sum3 :: (Int,Int,Int) -> Int
-sum3 (x,y,z) = x+y+z
-
-positive :: Int -> Bool
-positive n = n > 0
+increase :: Ord a => (a,a) -> Bool
+increase (x,y) = y > x
 
 pairs :: [a] -> [(a,a)]
 pairs xs = zip xs (tail xs)
 
-triples :: [a] -> [(a,a,a)]
-triples xs = zip3 xs ys zs
+window3sum :: [Int] -> [Int]
+window3sum xs = zipWith3 (\a b c -> a+b+c) xs ys zs
     where ys = tail xs
           zs = tail ys
 
 part1 :: [Int] -> Int
-part1 = length . filter positive . map (dist) . pairs
+part1 = length . filter increase . pairs
 
 part2 :: [Int] -> Int
-part2 = part1 . map (sum3) . triples
+part2 = part1 . window3sum
 
 sweep :: [String] -> Int
 sweep = part2 . map stoi
+    where stoi s = read s :: Int
