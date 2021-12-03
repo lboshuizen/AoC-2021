@@ -9,35 +9,34 @@ complement = map (\n -> 1-n)
 bin2dec :: [Int] -> Int
 bin2dec = foldl (\a c -> 2*a+c) 0
 
-common :: [Char] -> Int
-common = max . foldr cnt (0,0)
-         where cnt c (zr,on) = case c of
-                             '0' -> (zr+1,on)
-                             _ -> (zr,on+1)
-               max (a,b) | a > b = 0
-                         | otherwise = 1
+most :: Ord a => (a,a) -> Int
+most (a,b) | a > b = 0
+           | otherwise = 1
 
-select :: (Int -> Int -> Bool) -> Int -> [[Char]] -> [[Char]]
-select eq n xs = filter match $ xs
-            where dominant = common . position n . transpose $ xs
-                  match xs' = eq (digitToInt . position n $ xs') dominant
-                  position n = head . drop n
+count :: [Int] -> (Int,Int)
+count = foldr cnt (0,0)
+        where cnt c (zr,on) = case c of
+                                0 -> (zr+1,on)
+                                _ -> (zr,on+1)
 
-reduce :: (Int -> Int -> Bool) -> [[Char]] -> [Char]
+part1 :: [[Int]] -> Int
+part1 = uncurry (*) . gammaeps . map (most . count) . transpose
+    where gammaeps xs = (bin2dec xs, bin2dec . complement $ xs )
+
+reduce :: (Int -> Int -> Bool) -> [[Int]] -> [Int]
 reduce eq = go eq 0
+    where go _ _ (x:[]) = x
+          go eq col xs = go eq (col+1) . filter (match crit) $ xs
             where
-                go _ _ (x:[]) = x
-                go eq n xs = go eq (n+1) . select eq n $ xs
+                bit = head . drop col
+                crit = bit . map(count) . transpose $ xs
+                match zo = eq (most zo) . bit
 
-criteria :: (Int -> Int -> Bool) -> [[Char]] -> Int
-criteria eq = bin2dec . map (digitToInt) . reduce eq
+part2 :: [[Int]] -> Int
+part2 xs = ox * co2
+        where 
+        ox  = bin2dec . reduce (==) $ xs
+        co2 = bin2dec . reduce (/=) $ xs
 
-part1 = uncurry (*) . gammaeps . map (common) . transpose
-        where gammaeps xs = (bin2dec xs, bin2dec . complement $ xs)
-
-part2 xs = uncurry (*) (oxygen xs, co2 xs)
-        where oxygen = criteria (==)
-              co2 = criteria (/=)
-
-diagnostic :: [String] -> Int
-diagnostic = part2
+--diagnostic :: [String] -> Int
+diagnostic = part2 . map (map digitToInt)
