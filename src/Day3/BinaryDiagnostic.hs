@@ -38,5 +38,5 @@ part2 xs = ox * co2
         ox  = bin2dec . reduce (==) $ xs
         co2 = bin2dec . reduce (/=) $ xs
 
---diagnostic :: [String] -> Int
+diagnostic :: [String] -> Int
 diagnostic = part2 . map (map digitToInt)

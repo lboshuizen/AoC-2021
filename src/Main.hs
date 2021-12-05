@@ -1,25 +1,16 @@
 module Main where
 
-import           Day3.BinaryDiagnostic (diagnostic)
-import           Utils                 (readLines)
+import           Day4.Bingo (bingo)
 
-t = [
-        "00100",
-        "11110",
-        "10110",
-        "10111",
-        "10101",
-        "01111",
-        "00111",
-        "11100",
-        "10000",
-        "11001",
-        "00010",
-        "01010"
-      ]
+readLines :: FilePath -> IO [String]
+readLines fname =
+  do
+    content <- readFile fname
+    let ls = lines content
+    return ls
 
 main :: IO ()
 main = do
-  r <- readLines "./data/day3.txt"
-  let l = diagnostic r
+  r <- readLines "./data/day4.txt"
+  let l = bingo r
   print l

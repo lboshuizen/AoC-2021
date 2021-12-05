@@ -23,7 +23,7 @@ bool2num n b = if b then n else 0
 
 transpose :: [((Int, Int), a)] -> [((Int, Int), a)]
 transpose = map (\((x, y), c) -> ((y, x), c))
-
+  
 dimensions :: [[a]] -> (Int, Int)
 dimensions xs = (length . head $ xs, length xs)
 
