@@ -1,6 +1,6 @@
 module Main where
 
-import           Day5.HydrothermalVenture (venture)
+import           Day6.Lanternfish (lanternfish)
 
 t = [
     "1,1 -> 1,3",
@@ -18,6 +18,6 @@ readLines fname =
 
 main :: IO ()
 main = do
-  r <- readLines "./data/day5.txt"
-  let l = venture r
+  r <- readLines "./data/day6.txt"
+  let l = lanternfish r
   print l
