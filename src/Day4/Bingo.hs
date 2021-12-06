@@ -3,17 +3,10 @@ module Day4.Bingo (bingo) where
 import Data.List (find, (\\))
 import Data.Maybe (mapMaybe)
 import Data.List.Split (splitWhen,splitOn)
-import Debug.Trace (trace)
--- creates an XY map/chart
--- [".#.","#.."] => [
---                    ((0,0),'.'),((1,0),'#'),((2,0),'.'),
---                    ((0,1),'#'),((1,1),'.'),((2,1),'.')
---                  ]
--- Note: origin/xy:(0,0) is top left
 
 type Card = [((Int,Int), Int)]
 
-indexXY :: [[a]] -> [((Int,Int),a)] --indexXY :: [[a]] -> [((x,y),a)]
+indexXY :: [[a]] -> [((Int,Int),a)]
 indexXY xs = concat $ [[((x, y), c) | (x, c) <- zip [0 ..] r] | (y, r) <- zip [0 ..] xs]
 
 parse :: [String] -> ([Int],[Card])
@@ -45,10 +38,10 @@ withSquare :: Int -> [Card] -> [((Int,Int), Card)]
 withSquare n = mapMaybe (sq n)
 
 fullRowOrCol :: [Int] -> ((Int,Int), Card) -> Bool
-fullRowOrCol draw ((x,y),crd) = (fullcol x) || (fullrow y)
-    where fullcol c = full draw . col c $ crd
-          fullrow r = full draw . row r $ crd
-
+fullRowOrCol draw ((x,y),crd) | full draw . col x $ crd = True
+                              | full draw . row y $ crd = True
+                              | otherwise = False
+    
 score :: [Int] -> Card -> Int
 score draw@(l:_) = (*) l . sum . filter (\n -> notElem n draw) . numbers
 

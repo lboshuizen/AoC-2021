@@ -1,6 +1,13 @@
 module Main where
 
-import           Day4.Bingo (bingo)
+import           Day5.HydrothermalVenture (venture)
+
+t = [
+    "1,1 -> 1,3",
+    "9,7 -> 7,7",
+    "1,1 -> 3,3",
+    "9,7 -> 7,9"
+    ]
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,6 +18,6 @@ readLines fname =
 
 main :: IO ()
 main = do
-  r <- readLines "./data/day4.txt"
-  let l = bingo r
+  r <- readLines "./data/day5.txt"
+  let l = venture r
   print l

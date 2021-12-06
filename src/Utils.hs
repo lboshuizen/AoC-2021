@@ -18,14 +18,25 @@ indexXY xs = concat $ [[((x, y), c) | (x, c) <- zip [0 ..] r] | (y, r) <- zip [0
 indexYX :: Integral n => [[a]] -> [((n, n), a)]
 indexYX xs = concat $ [[((y, x), c) | (x, c) <- zip [0 ..] r] | (y, r) <- zip [0 ..] xs]
 
-bool2num :: Int -> Bool -> Int
-bool2num n b = if b then n else 0
-
 transpose :: [((Int, Int), a)] -> [((Int, Int), a)]
 transpose = map (\((x, y), c) -> ((y, x), c))
-  
+
 dimensions :: [[a]] -> (Int, Int)
 dimensions xs = (length . head $ xs, length xs)
+
+comp' :: Ord a => a -> Int
+comp' a b | b > a = 1
+          | b < a = -1 
+          | otherwise = 0
+
+-- draws a hor|vert|diag line between 2 points (diag=45 dgr)
+points :: ((Int,Int),(Int,Int)) -> [(Int,Int)]
+points ((x1,y1),(x2,y2)) = [ (x1+n*dx,y1+n*dy) | n <- [0..(max (abs (x2-x1)) (abs (y2-y1) ))] ]
+    where dx = comp' x1 x2
+          dy = comp' y1 y2
+
+bool2num :: Int -> Bool -> Int
+bool2num n b = if b then n else 0
 
 -- HACK: fixes leading +/- sign on number...
 stoi :: String -> Int
