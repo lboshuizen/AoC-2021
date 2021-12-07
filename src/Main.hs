@@ -1,13 +1,6 @@
 module Main where
 
-import           Day6.Lanternfish (lanternfish)
-
-t = [
-    "1,1 -> 1,3",
-    "9,7 -> 7,7",
-    "1,1 -> 3,3",
-    "9,7 -> 7,9"
-    ]
+import           Day7.TreacheryOfWhales (treachery)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -18,6 +11,7 @@ readLines fname =
 
 main :: IO ()
 main = do
-  r <- readLines "./data/day6.txt"
-  let l = lanternfish r
-  print l
+  d <- readLines "./data/day7.txt"
+  let r = treachery d
+  print r
+

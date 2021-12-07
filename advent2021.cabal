@@ -26,7 +26,7 @@ executable advent2021
   main-is:             Main.hs
   ghc-options:         -threaded
                        -rtsopts
-                       "-with-rtsopts=-N16 -s"
+                       "-with-rtsopts=-N10 -s"
   -- other-modules:
   -- other-extensions:
   build-depends:       base
