@@ -1,6 +1,6 @@
 module Main where
 
-import           Day7.TreacheryOfWhales (treachery)
+import           Day9.SmokeBasin (smoke)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,7 +11,7 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day7.txt"
-  let r = treachery d
+  d <- readLines "./data/day9.txt"
+  let r = smoke d
   print r
 
