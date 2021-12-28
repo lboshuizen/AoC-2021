@@ -1,6 +1,6 @@
 module Main where
 
-import           Day9.SmokeBasin (smoke)
+import           Day11.DumboOctopus (octopus)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,7 +11,9 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day9.txt"
-  let r = smoke d
+  d <- readLines "./data/day11.txt"
+  let r = octopus d
+  --let p = foldl (\a c -> a ++ show c ++ "\n") "" r
+  --putStrLn p
   print r
 
