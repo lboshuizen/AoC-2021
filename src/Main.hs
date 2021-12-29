@@ -1,6 +1,6 @@
 module Main where
 
-import           Day11.DumboOctopus (octopus)
+import Day12.PassagePathing (pathing)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,9 +11,8 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day11.txt"
-  let r = octopus d
-  --let p = foldl (\a c -> a ++ show c ++ "\n") "" r
-  --putStrLn p
+  d <- readLines "./data/day12.txt"
+  let r = pathing d
   print r
+
 
