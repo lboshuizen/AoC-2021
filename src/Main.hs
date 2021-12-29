@@ -1,6 +1,6 @@
 module Main where
 
-import Day12.PassagePathing (pathing)
+import Day13.TransparentOrigami (origami)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,8 +11,9 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day12.txt"
-  let r = pathing d
-  print r
+  d <- readLines "./data/day13.txt"
+  let r = origami d
+  putStrLn r
+  --print r
 
 
