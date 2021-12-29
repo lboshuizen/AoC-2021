@@ -1,6 +1,6 @@
 module Main where
 
-import Day13.TransparentOrigami (origami)
+import Day14.ExtendedPolymerization (polymerization)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,9 +11,9 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day13.txt"
-  let r = origami d
-  putStrLn r
-  --print r
+  d <- readLines "./data/day14.txt"
+  let r = polymerization d
+  --putStrLn r
+  print r
 
 
