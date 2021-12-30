@@ -1,6 +1,6 @@
 module Main where
 
-import Day14.ExtendedPolymerization (polymerization)
+import Day15.Chiton (chiton)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,8 +11,8 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day14.txt"
-  let r = polymerization d
+  d <- readLines "./data/day15.txt"
+  let r = chiton d
   --putStrLn r
   print r
 

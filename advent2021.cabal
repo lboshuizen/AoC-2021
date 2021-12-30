@@ -32,8 +32,10 @@ executable advent2021
   build-depends:       base
                        ,array
                        ,containers
+                       ,hashable
                        ,mtl
                        ,memoize
+                       ,pqueue
                        ,split
                        ,unordered-containers  
                        ,vector
