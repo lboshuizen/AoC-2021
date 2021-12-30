@@ -1,6 +1,6 @@
 module Main where
 
-import Day15.Chiton (chiton)
+import Day16.PacketDecoder (decoder)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,8 +11,8 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day15.txt"
-  let r = chiton d
+  d <- readLines "./data/day16.txt"
+  let r = decoder d
   --putStrLn r
   print r
 
