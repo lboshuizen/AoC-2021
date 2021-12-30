@@ -7,10 +7,12 @@ import Data.Hashable (Hashable)
 import Data.List (foldl', sort)
 import Data.Maybe (fromJust, catMaybes)
 
-import qualified Data.Map as M
+import qualified Data.Map.Strict as M
 import Data.Char (digitToInt)   
 
 type XY = (Int,Int)
+
+github.com/tov/memoize
 
 -- courtesy of Abhinav Sarkar
 -- https://gist.github.com/abhin4v/8172534
@@ -47,7 +49,7 @@ indexXY :: [[Int]] -> [(XY,Int)]
 indexXY xs = concat $ [[((y, x), c) | (x, c) <- zip [0 ..] r] | (y, r) <- zip [0 ..] xs]
 
 adjacents :: XY -> [XY]
-adjacents (x,y) = map (\(x',y') -> (x+x',y+y')) [(-1,0),(1,0),(0,-1),(0,1)]
+adjacents (x,y) = (\(x',y') -> (x+x',y+y')) <$> [(-1,0),(1,0),(0,-1),(0,1)]
 
 next :: M.Map XY Int -> XY -> [(XY,Int)]
 next m = catMaybes . map l . adjacents
@@ -56,7 +58,7 @@ next m = catMaybes . map l . adjacents
                 Just c -> Just (p,c)
 
 path :: Int -> M.Map XY Int -> Maybe (Int, [XY])
-path mx m = astarSearch (0,0) ((==) (mx,mx)) (next m) (\_ -> 4*mx)
+path mx m = astarSearch (0,0) ((==) (mx,mx)) (next m) (\(x,_) -> 4*(mx-x))
 
 expand :: Int -> Int -> [(XY,Int)] -> [(XY,Int)]
 expand n m xs = concat [ [ ((x+m*ox,y+m*oy),level r ox oy) | ((x,y),r) <- xs, ox <- [0..n] ] | oy <- [0..n] ]
@@ -64,11 +66,12 @@ expand n m xs = concat [ [ ((x+m*ox,y+m*oy),level r ox oy) | ((x,y),r) <- xs, ox
                       | otherwise = s
             where s = (r + x + y)
 
-part1, part2 :: [(XY,Int)] -> Int
-part1 xs = fst . fromJust . path mx $ M.fromList xs
-    where (mx,_) = fst . head . reverse . sort $ xs
+maxX xs = maximum $ fst . fst <$> xs
 
-part2 xs = part1 . expand 4 (mx+1) $ xs
-    where (mx,_) = fst . head . reverse . sort $ xs
+part1, part2 :: [(XY,Int)] -> Int
+part1 xs = fst . fromJust . path (maxX xs) $ M.fromList xs
+
+part2 xs = part1 . expand 4 mx $ xs
+    where mx = 1 + maxX xs
 
 chiton = part2 . indexXY . parse

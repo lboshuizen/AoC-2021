@@ -1,6 +1,6 @@
 module Main where
 
-import Day15.Chiton (chiton)
+import Day24.ArithmeticLogicUnit (alu)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,8 +11,8 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day15.txt"
-  let r = chiton d
+  d <- readLines "./data/day24.txt"
+  let r = alu d
   --putStrLn r
   print r
 
