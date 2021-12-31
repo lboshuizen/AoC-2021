@@ -1,6 +1,6 @@
 module Main where
 
-import Day16.PacketDecoder (decoder)
+import Day25.SeaCucumber (sea)
 
 readLines :: FilePath -> IO [String]
 readLines fname =
@@ -11,8 +11,8 @@ readLines fname =
 
 main :: IO ()
 main = do
-  d <- readLines "./data/day16.txt"
-  let r = decoder d
+  d <- readLines "./data/day25.txt"
+  let r = sea d
   --putStrLn r
   print r
 

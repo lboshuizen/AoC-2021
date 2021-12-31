@@ -18,11 +18,18 @@ indexXY xs = concat $ [[((x, y), c) | (x, c) <- zip [0 ..] r] | (y, r) <- zip [0
 indexYX :: Integral n => [[a]] -> [((n, n), a)]
 indexYX xs = concat $ [[((y, x), c) | (x, c) <- zip [0 ..] r] | (y, r) <- zip [0 ..] xs]
 
+draw :: [(Int,Int)] -> String
+draw xs = unlines [ concat [if (x,y) `elem` xs then "X" else " " | x <- ([0..mx]) ] | y <- ([0..my]) ]
+    where (mx,my) = last . sort $ xs
+
 transpose :: [((Int, Int), a)] -> [((Int, Int), a)]
 transpose = map (\((x, y), c) -> ((y, x), c))
 
 dimensions :: [[a]] -> (Int, Int)
 dimensions xs = (length . head $ xs, length xs)
+
+maxXY :: Integral a => [((a,a),b)] -> (a,a)
+maxXY = foldr (\((x',y'),_) (x,y) -> (max x x', max y y')) (0,0)
 
 comp' :: Ord a => a -> Int
 comp' a b | b > a = 1
